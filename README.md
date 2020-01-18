@@ -1,5 +1,5 @@
 # quat_m
-Matlab package for Quaternion arithmetic  
+Matlab package for quaternion arithmetic  
 Written by Dan Oates (WPI Class of 2020)
 
 ### Description
