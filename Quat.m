@@ -61,19 +61,22 @@ classdef Quat
         
         function q = conj(q)
             %q = CONJ(q) Conjugation [w, -x, -y, -z]
-            q = quat.Quat(q.w, -q.x, -q.y, -q.z);
+            import('quat.Quat');
+            q = Quat(q.w, -q.x, -q.y, -q.z);
         end
         
         function q = inv(q)
             %q = INV(q) Inverse [conj(q) / norm(q)^2]
+            import('quat.Quat');
             s = 1 / norm(q)^2;
-            q = quat.Quat(q.w*s, -q.x*s, -q.y*s, -q.z*s);
+            q = Quat(q.w*s, -q.x*s, -q.y*s, -q.z*s);
         end
         
         function q = unit(q)
             %q = UNIT(q) Unit quaternion of q
+            import('quat.Quat');
             s = 1 / norm(q);
-            q = quat.Quat(q.w*s, q.x*s, q.y*s, q.z*s);
+            q = Quat(q.w*s, q.x*s, q.y*s, q.z*s);
         end
         
         function q = pos_w(q)
@@ -144,11 +147,12 @@ classdef Quat
         
         function q = mtimes(q1, q2)
             %q = MTIMES(q1, q2) Quaternion multiplication
+            import('quat.Quat');
             w_ = q1.w*q2.w - q1.x*q2.x - q1.y*q2.y - q1.z*q2.z;
             x_ = q1.w*q2.x + q1.x*q2.w + q1.y*q2.z - q1.z*q2.y;
             y_ = q1.w*q2.y - q1.x*q2.z + q1.y*q2.w + q1.z*q2.x;
             z_ = q1.w*q2.z + q1.x*q2.y - q1.y*q2.x + q1.z*q2.w;
-            q = quat.Quat(w_, x_, y_, z_);
+            q = Quat(w_, x_, y_, z_);
         end
         
         function q = mrdivide(q1, q2)
@@ -163,25 +167,28 @@ classdef Quat
         
         function q = plus(q1, q2)
             %q = PLUS(q1, q2) Quaternion addition
+            import('quat.Quat');
             w_ = q1.w + q2.w;
             x_ = q1.x + q2.x;
             y_ = q1.y + q2.y;
             z_ = q1.z + q2.z;
-            q = quat.Quat(w_, x_, y_, z_);
+            q = Quat(w_, x_, y_, z_);
         end
         
         function q = minus(q1, q2)
             %q = MINUS(q1, q2) Quaternion subtraction
+            import('quat.Quat');
             w_ = q1.w - q2.w;
             x_ = q1.x - q2.x;
             y_ = q1.y - q2.y;
             z_ = q1.z - q2.z;
-            q = quat.Quat(w_, x_, y_, z_);
+            q = Quat(w_, x_, y_, z_);
         end
         
         function q = uminus(q)
             %q = UMINUS(q) Unary minus [-w, -x, -y, -z]
-            q = quat.Quat(-q.w, -q.x, -q.y, -q.z);
+            import('quat.Quat');
+            q = Quat(-q.w, -q.x, -q.y, -q.z);
         end
         
         function q = uplus(q)
