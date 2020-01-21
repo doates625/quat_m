@@ -3,8 +3,7 @@ Matlab package for quaternion arithmetic
 Written by Dan Oates (WPI Class of 2020)
 
 ### Description
-This package contains the Quat class for Quaternions. It implements the
-following arithetic operations:
+This package contains the Quat class for Quaternions. It implements the following arithetic operations:
 
 - Euclydian norm [norm(q)]
 - Conjugation [conj(q)]
@@ -17,8 +16,7 @@ following arithetic operations:
 - Left division [q1 \ q2]
 - Right division [q1 / q2]
 
-It also has functions for rotation matrices, vector rotations, and axis-angle
-decomposition for unit quaternions.
+It also has functions for rotation matrices, vector rotations, and axis-angle decomposition for unit quaternions.
 
 ### Cloning and Submodules
 Clone this repo as '+quat' and add the containing dir to the Matlab path.
