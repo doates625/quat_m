@@ -3,14 +3,14 @@ classdef Quat
     %   
     %   Author: Dan Oates (WPI Class of 2020)
     
-    properties
+    properties (Access = public)
         w;  % w - component
         x;  % x - component
         y;  % y - component
         z;  % z - component
     end
     
-    methods
+    methods (Access = public)
         function q = Quat(varargin)
             %QUAT Construct quaternion vector
             %   q = QUAT(w, x, y, z) Element-based form
@@ -100,6 +100,14 @@ classdef Quat
             ax(3) = q.z * ax_s;
         end
         
+        function [tz, ty, tx] = euler(q)
+            %[tz, ty, tx] = EULER(q) Convert to Z-Y-X Euler angles
+            [xx, yy, zz, wx, wy, wz, xy, xz, yz] = prods(q);
+            tz = atan2(wz + xy, 1 - yy - zz);
+            ty = asin(wy - xz);
+            tx = atan2(wx + yz, 1 - xx - yy);
+        end
+        
         function v = rotate(q, v)
             %v = ROTATE(q, v) Rotates vector v by unit quaternion q
             v = mat_rot(q) * v;
@@ -130,15 +138,7 @@ classdef Quat
         
         function R = mat_rot(q)
             %R = MAT_ROT(q) Rotation matrix of unit quaternion [q*v*q^=1 = R*v]
-            xx = 2 * q.x * q.x;
-            yy = 2 * q.y * q.y;
-            zz = 2 * q.z * q.z;
-            wx = 2 * q.w * q.x;
-            wy = 2 * q.w * q.y;
-            wz = 2 * q.w * q.z;
-            xy = 2 * q.x * q.y;
-            xz = 2 * q.x * q.z;
-            yz = 2 * q.y * q.z;
+            [xx, yy, zz, wx, wy, wz, xy, xz, yz] = prods(q);
             R = [...
                 [1 - yy - zz, xy - wz, xz + wy]; ...
                 [xy + wz, 1 - xx - zz, yz - wx]; ...
@@ -193,6 +193,22 @@ classdef Quat
         
         function q = uplus(q)
             %q = UPLUS(q) Unary plus [+w, +x, +y, +z]
+        end
+    end
+    
+    methods (Access = protected)
+        function [xx, yy, zz, wx, wy, wz, xy, xz, yz] = prods(q)
+            %[xx, yy, zz, wx, wy, wz, xy, xz, yz] = PRODS(q)
+            %   Doubled quaternion component products
+            xx = 2 * q.x * q.x;
+            yy = 2 * q.y * q.y;
+            zz = 2 * q.z * q.z;
+            wx = 2 * q.w * q.x;
+            wy = 2 * q.w * q.y;
+            wz = 2 * q.w * q.z;
+            xy = 2 * q.x * q.y;
+            xz = 2 * q.x * q.z;
+            yz = 2 * q.y * q.z;
         end
     end
 end
