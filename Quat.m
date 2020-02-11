@@ -145,6 +145,15 @@ classdef Quat
                 [xz - wy, yz + wx, 1 - xx - yy]];
         end
         
+        function J = jac_rot(q, v)
+            %J = JAC_ROT(q, v) Jacobian of rotated vector from q
+            qs = q.w;
+            qv = [q.x; q.y; q.z];
+            Js = 2*(qs * v + qv);
+            Jv = 2*((qv.'*v + qs)*eye(3) + qv*v.' - v*qv.');
+            J = [Js, Jv];
+        end
+        
         function q = mtimes(q1, q2)
             %q = MTIMES(q1, q2) Quaternion multiplication
             import('quat.Quat');
